@@ -1,0 +1,276 @@
+        body {
+            font-family: 'Noto Sans', sans-serif;
+            font-weight: 400;
+            background: linear-gradient(180deg, #040918 0%, #091540 100%);
+            display: flex;
+            justify-content: center;
+            align-items: center;            
+            color: white;
+            min-height: 100vh;
+        }
+
+        .wrapper {                        
+            width: 100%;
+            max-width: 1250px;
+            padding: 20px;    
+            position: relative;        
+        }
+
+        #container {                            
+            display: grid;            
+            grid-template-columns: repeat(auto-fit,minmax(250px,1fr));                    
+            gap: 10px;                                                  
+        }
+        
+        .tool-card {            
+            display: flex;                        
+            flex-direction: column;           
+            justify-content: space-between;            
+            background-color: hsl(225, 23%, 24%);
+            border-radius: 16px;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+            padding: 15px;
+            height: 200px;            
+            border: 2px solid gray;                                        
+        }
+        
+        .tool-card img {
+            width: 45px;
+            height: 45px;            
+        }
+        .tool-info h1{
+            font-size: 20px;            
+            margin: 0 0 6px 0;            
+        }
+        
+        .extension {            
+            width: 100%;
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+            flex-wrap: wrap;                        
+            padding: 8px;                          
+            max-width: 1230px;            
+        }
+        
+        #header {            
+            padding-top: 10px;
+            flex: 1 1 50px;              
+        }
+
+        /* Filtered buttons */
+        .filter-btn {
+            display: flex;
+            justify-content: flex-end;
+            flex-wrap: nowrap;            
+            flex: 1 1 30px;            
+            gap: 15px;                                       
+        }
+
+        button {
+            position: relative;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+        }
+
+        button:active {
+            top: 3px;            
+        }
+
+        /* Both the Active and Inactive */
+        #all-btn {
+            border: none;
+            border-radius: 30px;
+            padding: 8px 10px;
+            font-size: 16px;            
+            background-color: hsl(3, 86%, 64%);
+            cursor: pointer;
+            transition: background 0.3s ease;
+            min-width: 90px;
+        }
+        
+        #all-btn:hover {
+            border: 1px solid red;
+        }
+
+        /* Active toggle */
+        #active {
+            background-color:  hsl(225, 23%, 24%);
+            border-radius: 30px;
+            padding: 8px 10px;            
+            border: 1px solid #ccc;
+            color: #ccc;
+            cursor: pointer;
+        }
+        
+        #active:hover {
+            border: 1px solid red;
+        }
+
+        #inactive {
+            padding: 8px 10px;
+            border: 1px solid #ccc;
+            color: #ccc;
+            background-color:  hsl(225, 23%, 24%);
+            border-radius: 30px;
+            cursor: pointer;
+        }
+
+        #inactive:hover {
+            border: 1px solid red;
+        }
+
+        /* Status toggle */
+        div.status-toggle {            
+            display: flex;
+            align-items: center;
+            justify-content: right;            
+            gap: 5px;
+        }
+
+        label.switch {
+            position: relative;
+            display: inline-block;
+            width: 20%;
+            height: 28px;            
+            border-radius: 30px;
+            background-color: gray;            
+        }
+
+        .switch .input {
+            opacity: 0;
+            width: 0;
+            height: 0;            
+        }
+
+        .slider {
+            position: absolute;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            top: 0;
+            transition: .4s;
+            border-radius: 30px;
+            cursor: pointer;
+        }
+
+        .slider::before {
+            position: absolute;
+            content: '';
+            height: 26px;
+            width: 26px;
+            left: 1px;
+            bottom: 1px;
+            background-color: white;
+            transition: .4s;
+            border-radius: 50%;
+        }
+
+        /* If checked let the checkbox display Green */
+        .input:checked + .slider {
+            background-color: #ac4848;
+        }
+        
+        .input:checked + .slider::before {
+            transform: translateX(26px);
+        }
+
+        #box {
+            display: flex;           
+            align-items: center;                                                 
+            padding: 5px;
+            background-color: hsl(226, 25%, 17%);
+            border-radius: 20px;            
+        }
+        
+        #box img {                        
+            height: 35px;
+            margin-left: 10px;                        
+        }
+
+        .icon {            
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+            width: 100%;
+            padding: 6px;
+        }
+
+        .darkmode-toggle {
+            position: absolute;
+            opacity: 0;            
+            width: 0;
+            height: 0;
+        }
+
+        .theme-toggle {            
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            cursor: pointer;
+            border-radius: 10px;            
+            line-height: 0;                        
+            margin-right: 8px;
+        }
+
+        .theme-toggle:hover {
+            background-color: hsl(226, 11%, 37%);            
+        }
+        
+        .theme-toggle img {            
+            width: 20px;
+            height: 20px;  
+            margin: auto;                      
+        }
+
+        .moon,.sun {
+            filter: none !important;
+            color: initial !important;
+            fill: initial !important;            
+        }
+
+        .moon {
+            display: none;            
+        }
+
+        .darkmode-toggle:checked ~ .sun {
+            display: none;
+        }
+
+        .darkmode-toggle:checked ~ .moon {
+            display: inline;
+        }
+
+        /* Mobile Responsiveness */
+        @media (max-width:375px) {
+            .extension {
+                flex-direction: column;
+                align-items: center;
+                text-align: center;
+            }
+            
+            #header {
+                font-size: 20px;                
+            }
+            .filter-btn {                
+                justify-content: center;                                
+            }
+
+            .filter-btn button {
+                width: 100%;
+                max-width: 300px;
+            }
+        }
+
+        /* For Tablets */
+        @media (max-width: 768px) {
+            #container {
+                grid-template-columns: 1fr;   
+                grid-template-rows: auto;                
+            }
+            body {
+                overflow: auto;
+            }
+            
+        }
