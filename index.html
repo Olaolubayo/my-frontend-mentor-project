@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>My Frontend Mentor Project</title>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>        
+    <div class="wrapper">                 
+        <div id="box">
+            <img src="assets/images/logo.svg"  class="logo">            
+                <div class="icon">                                                      
+                    <label class="theme-toggle">
+                        <input type="checkbox" class="darkmode-toggle">                    
+                        <img src="assets/images/icon-sun.svg" class="sun">
+                        <img src="assets/images/icon-moon.svg" class="moon">
+                    </label>                    
+                </div>
+        </div>
+
+        <div class="extension">            
+            <h1 id="header">Extension List</h1>            
+            <div class="filter-btn">
+                <button id="all-btn">All</button>
+                <button id="active">Active</button>
+                <button id="inactive">Inactive</button>
+            </div>
+        </div>
+
+        <div id="container"></div>
+    </div>
+    <script>                     
+        const filterbuttons = document.querySelectorAll('.filter-btn');            
+        
+        const inputEl = document.querySelector('.darkmode-toggle');        
+        const box = document.getElementById('box');
+
+        // Button for both Active and Inactive
+        const allBtn = document.getElementById('all-btn');
+        // Active Button
+        const activeBtn = document.getElementById('active');
+        // Inactive button
+        const inactiveBtn = document.getElementById('inactive');
+        // Body Element
+        const bodyEl = document.querySelector('body');
+        
+        inputEl.addEventListener('change',() => {
+            updateBody();
+        })
+        
+        function updateBody() {
+            if(inputEl.checked) {                              
+                box.style.background = 'white';
+                bodyEl.style.background = 'hsl(217, 61%, 90%)';
+                bodyEl.style.color = 'hsl(227, 75%, 14%)'
+                const toolCard = document.querySelectorAll('.tool-card');
+                toolCard.forEach(cards => {
+                    cards.style.background = 'white';
+                    cards.style.border = 'none';
+                })
+            }else {
+                box.style.background = 'hsl(225, 23%, 24%)'
+                bodyEl.style.background = 'hsl(227, 75%, 14%)'            
+                bodyEl.style.color = 'white';
+                const toolCard = document.querySelectorAll('.tool-card');
+                toolCard.forEach(cards => {
+                    cards.style.border = '1px solid gray';
+                    cards.style.background = 'hsl(225, 23%, 24%)'
+                })
+
+            }
+        }
+
+
+        fetch('data.json')
+        .then(response => response.json())
+        .then(data => {
+            console.error('data',data)
+        data.forEach(tool=> {
+        const container = document.getElementById('container');
+        const card = document.createElement('div');
+        card.className = `tool-card ${tool.isActive? 'active': 'inactive'}`;        
+        card.innerHTML = `
+        <img src = "${tool.logo}" alt ="${tool.name} logo" width = "50">        
+        <div class = 'tool-info'>
+            <h1>${tool.name}</h1>
+            <p id = "desc">${tool.description}</p>
+            <div class = 'status-toggle'>
+                <label class = 'switch'>                    
+                    <input class= 'input' type = 'checkbox' ${tool.isActive? 'checked' : ''}>
+                    <span class='slider'></span>
+                </label>
+                <span class ="status-label">${tool.isActive ? 'Active' : 'Inactive'}</span>
+            </div>
+        </div>`;                        
+        
+            container.appendChild(card);
+            
+        });        
+    })
+    .catch(error => console.log('error',error));                    
+        
+
+        activeBtn.addEventListener('click',() => {
+           const toolCard = document.querySelectorAll('.tool-card');           
+           toolCard.forEach(activeToolItem => {
+            if(activeToolItem.classList.contains('active')) {
+                activeToolItem.style.display = '';
+                console.log('active',activeToolItem);
+            }else {
+                activeToolItem.style.display = 'none';
+            }
+           })
+        })        
+
+        inactiveBtn.addEventListener('click',() => {
+            const toolCard = document.querySelectorAll('.tool-card');
+            toolCard.forEach(inactiveToolItem => {
+            if(inactiveToolItem.classList.contains('inactive')) {
+                inactiveToolItem.style.display = '';
+                console.log('inactive',inactiveToolItem)
+            }else {
+                inactiveToolItem.style.display = 'none';                
+            }
+            })
+        })
+
+        allBtn.addEventListener('click',() => {
+            const toolCard = document.querySelectorAll('.tool-card');
+            console.log('toolcard',toolCard);            
+            toolCard.forEach(allItem => {
+                allItem.style.display = '';
+                console.log('allitem',allItem)
+            })
+        })
+
+       
+    </script>
+</body>
+
+</html>
+
+                        
